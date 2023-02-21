@@ -17,8 +17,8 @@ func main() {
 	b.Write([]byte("Hello"))
 
 	// Use Fprintf to concatenate a string to the Buffer.
-	fmt.Fprintf(&b, "World!")
+	_, _ = fmt.Fprintf(&b, "World!")
 
 	// Write the content of the Buffer to stdout.
-	io.Copy(os.Stdout, &b)
+	_, _ = io.Copy(os.Stdout, &b)
 }

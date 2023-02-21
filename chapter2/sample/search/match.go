@@ -1,6 +1,7 @@
 package search
 
 import (
+	"fmt"
 	"log"
 )
 
@@ -35,9 +36,12 @@ func Match(matcher Matcher, feed *Feed, searchTerm string, results chan<- *Resul
 // Display writes results to the console window as they
 // are received by the individual goroutines.
 func Display(results chan *Result) {
+	count := 0
 	// The channel blocks until a result is written to the channel.
 	// Once the channel is closed the for loop terminates.
 	for result := range results {
+		count++
 		log.Printf("%s:\n%s\n\n", result.Field, result.Content)
 	}
+	fmt.Printf("count: %d\n", count)
 }

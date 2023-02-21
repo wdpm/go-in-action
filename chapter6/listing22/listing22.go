@@ -47,7 +47,7 @@ func Runner(baton chan int) {
 	}
 
 	// Running around the track.
-	time.Sleep(100 * time.Millisecond)
+	time.Sleep(500 * time.Millisecond)
 
 	// Is the race over.
 	if runner == 4 {

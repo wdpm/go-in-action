@@ -38,6 +38,8 @@ func New(maxGoroutines int) *Pool {
 
 // Run submits work to the pool.
 func (p *Pool) Run(w Worker) {
+	// 由于 work 通道是一个无缓冲的通道，调用者必须等待工作池里的某个 goroutine 接收到这个值才会返回。
+	// 这正是我们想要的，这样可以保证调用的 Run 返回时，提交的工作已经开始执行
 	p.work <- w
 }
 

@@ -41,8 +41,10 @@ func main() {
 		tasks <- fmt.Sprintf("Task : %d", post)
 	}
 
+	fmt.Println("Close channel.")
 	// Close the channel so the goroutines will quit
 	// when all the work is done.
+	// 因为上面是有缓冲区的channel，因此所有任务创建完成后，这个channel就可以立即关闭了。不关心消费者如何处理。
 	close(tasks)
 
 	// Wait for all the work to get done.

@@ -39,6 +39,8 @@ func incCounter(id int) {
 	defer wg.Done()
 
 	for count := 0; count < 2; count++ {
+		// 强制同一时刻只能有一个 goroutine 运行并完成这个加法操作
+		// [read + add 1 + write back] = atomic op
 		// Safely Add One To Counter.
 		atomic.AddInt64(&counter, 1)
 

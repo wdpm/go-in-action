@@ -34,6 +34,7 @@ func init() {
 		"WARNING: ",
 		log.Ldate|log.Ltime|log.Lshortfile)
 
+	// multi writer target
 	Error = log.New(io.MultiWriter(file, os.Stderr),
 		"ERROR: ",
 		log.Ldate|log.Ltime|log.Lshortfile)

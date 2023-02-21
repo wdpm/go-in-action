@@ -9,10 +9,13 @@ import (
 	"sync"
 )
 
+// 在 Go 1.6 及之后的版本中，标准库里自带了资源池的实现 sync.Pool
+
 // Pool manages a set of resources that can be shared safely by
 // multiple goroutines. The resource being managed must implement
 // the io.Closer interface.
 type Pool struct {
+	// 互斥锁用来保证在多个 goroutine 访问资源池时，池内的值是安全的
 	m         sync.Mutex
 	resources chan io.Closer
 	factory   func() (io.Closer, error)
@@ -49,6 +52,7 @@ func (p *Pool) Acquire() (io.Closer, error) {
 		return r, nil
 
 	// Provide a new resource since there are none available.
+	// 因为没有空闲资源可用，提供一个新资源
 	default:
 		log.Println("Acquire:", "New Resource")
 		return p.factory()
@@ -62,6 +66,8 @@ func (p *Pool) Release(r io.Closer) {
 	defer p.m.Unlock()
 
 	// If the pool is closed, discard the resource.
+	// 因为 Release() 和 Close() 都使用了这个p.closed变量状态来进行代码逻辑操作，因此必须互斥访问。
+	// 对 closed 标志的读写必须进行同步，否则可能误导其他 goroutine，让其认为该资源池依旧是打开的，并试图对通道进行无效的操作
 	if p.closed {
 		r.Close()
 		return

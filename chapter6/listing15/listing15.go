@@ -55,3 +55,17 @@ func doWork(name string) {
 		}
 	}
 }
+
+// 主线程等待 1s，而 goroutines 每个都是间隔 250ms 输出一次，因为 A 和 B 各自输出 4 次 work。
+
+// Doing B Work
+// Doing A Work
+// Doing A Work
+// Doing B Work
+// Doing B Work
+// Doing A Work
+// Doing A Work
+// Doing B Work
+// Shutdown Now
+// Shutting A Down
+// Shutting B Down

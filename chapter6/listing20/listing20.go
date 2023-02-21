@@ -67,3 +67,11 @@ func player(name string, court chan int) {
 		court <- ball
 	}
 }
+
+// Player Djokovic Hit 1
+// Player Nadal Hit 2
+// Player Djokovic Hit 3
+// Player Nadal Hit 4
+// Player Djokovic Hit 5
+// Player Nadal Missed
+// Player Djokovic Won

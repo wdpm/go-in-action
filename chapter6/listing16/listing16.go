@@ -41,6 +41,7 @@ func incCounter(id int) {
 	defer wg.Done()
 
 	for count := 0; count < 2; count++ {
+		// 代码块同步
 		// Only allow one goroutine through this
 		// critical section at a time.
 		mutex.Lock()

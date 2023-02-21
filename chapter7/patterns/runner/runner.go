@@ -70,6 +70,11 @@ func (r *Runner) Start() error {
 }
 
 // run executes each registered task.
+// 这里的例子依旧过于简单了。应当考虑多值返回：
+// - 正确执行结束，返回 data,nil
+// - 出错，返回 nil,error
+
+// 更加成熟的做法，应该考虑出错后的重试机制
 func (r *Runner) run() error {
 	for id, task := range r.tasks {
 		// Check for an interrupt signal from the OS.
@@ -94,6 +99,8 @@ func (r *Runner) gotInterrupt() bool {
 		return true
 
 	// Continue running as normal.
+	// 一般来说，select 语句在没有任何要接收的数据时会阻塞，不过有了 default 分支就不会阻塞了。
+	// default 分支会将接收 interrupt 通道的阻塞调用转变为非阻塞的
 	default:
 		return false
 	}
