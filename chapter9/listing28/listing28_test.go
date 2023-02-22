@@ -44,3 +44,10 @@ func BenchmarkItoa(b *testing.B) {
 		strconv.Itoa(number)
 	}
 }
+
+// BenchmarkSprintf
+// BenchmarkSprintf-8      12498866                85.24 ns/op
+// BenchmarkFormat
+// BenchmarkFormat-8       434653472                3.161 ns/op
+// BenchmarkItoa
+// BenchmarkItoa-8         378260010                2.702 ns/op

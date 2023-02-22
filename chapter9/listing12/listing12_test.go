@@ -52,6 +52,7 @@ func TestDownload(t *testing.T) {
 	{
 		t.Logf("\tWhen checking \"%s\" for status code \"%d\"",
 			server.URL, statusCode)
+		fmt.Printf("Server URL: %q\n", server.URL)
 		{
 			resp, err := http.Get(server.URL)
 			if err != nil {
